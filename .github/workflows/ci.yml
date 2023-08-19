@@ -32,11 +32,11 @@ jobs:
           cp README.md /tmp/pypiserver
       - name: validate readme with mdformat and store result in output do not exit on failure
         id: validate_readme
-        continue-on-error: true
         run: |
           mdformat_result=$(mdformat --check README.md 2>&1)
           echo "mdformat result: '${mdformat_result}'"
           echo "::set-output name=mdformat_result::$mdformat_result"
+        continue-on-error: true
       - name: check mdformat result
         run: |
           echo "mdformat result: '${{ steps.validate_readme.outputs.mdformat_result }}'"
