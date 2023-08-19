@@ -15,6 +15,8 @@ jobs:
     # These checks only need to be done once, not for every python version we
     # support
     runs-on: ubuntu-latest
+    outputs:
+      mdformat_result: ${{ steps.validate_readme.outputs.mdformat_result }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -33,7 +35,9 @@ jobs:
       - name: validate readme with mdformat and store result in output do not exit on failure
         id: validate_readme
         run:
-          echo "starting check..."; mdformat_result=$(mdformat --check README.md 2>&1); echo "completed check..."; echo "::set-output name=mdformat_result::$mdformat_result"; echo "out of check..."; echo "mdformat result: '${mdformat_result}'"
+          mdformat_result=$(mdformat --check README.md 2>&1)
+        outputs: # The output variable set by the action
+          mdformat_result: ${{ steps.validate_readme.outputs.mdformat_result }}
         continue-on-error: true
       - name: check mdformat result
         run: |
