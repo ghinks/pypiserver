@@ -23,5 +23,19 @@ jobs:
         run: |
           pip install -r "requirements/dev.pip"
           pip install types-pkg_resources # one of mypy required stubs
-      - name: Validate README
-        run: mdformat --check README.md
+      - name: Copy Readme to temp dir
+        run: |
+          mkdir -p /tmp/pypiserver
+          cp README.md /tmp/pypiserver
+      - name: validate readme with mdformat and store result
+        run: |
+          mdformat --check README.md
+          echo "::set-output name=mdformat_result::${?}"
+      - name: check mdformat result
+        run: |
+          if [ "${{ steps.validate_readme.outputs.mdformat_result }}" -ne 0 ]; then
+            echo "README.md is not formatted correctly. Please run 'mdformat --in-place README.md' and commit the result."
+            mdformat --in-place /tmp/pypiserver/README.md
+            diff -u README.md /tmp/pypiserver/README.md
+            exit 1
+          fi
