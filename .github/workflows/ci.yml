@@ -30,8 +30,8 @@ jobs:
       - name: validate readme with mdformat and store result in output do not exit on failure
         continue-on-error: true
         run: |
-          mdformat --check README.md 2>&1
-          echo "::set-output name=mdformat_result::${?}"
+          mdformat_result=$(mdformat --check README.md 2>&1)
+          echo "::set-output name=mdformat_result::$mdformat_result"
       - name: check mdformat result
         run: |
           if [[ ! -z "${{ steps.validate_readme.outputs.mdformat_result }}" ]]; then
