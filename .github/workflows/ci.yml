@@ -5,6 +5,9 @@ name: CI
 on:
   # This will run when any branch or tag is pushed
   workflow_dispatch:
+  push:
+    branches:
+      - feature/markdown-diff
 
 jobs:
 
