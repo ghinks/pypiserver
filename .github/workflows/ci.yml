@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feature/markdown-diff
+      - feature/markdown_diff
 
 jobs:
 
