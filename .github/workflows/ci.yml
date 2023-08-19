@@ -35,7 +35,7 @@ jobs:
       - name: validate readme with mdformat and store result in output do not exit on failure
         id: validate_readme
         run:
-          mdformat_result=$(mdformat --check README.md 2>&1)
+          mdformat --check README.md 2>&1
           outputs: # The output variable set by the action
             mdformat_result: ${{ steps.validate_readme.outputs.mdformat_result }}
         continue-on-error: true
