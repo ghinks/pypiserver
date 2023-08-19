@@ -28,6 +28,7 @@ jobs:
           mkdir -p /tmp/pypiserver
           cp README.md /tmp/pypiserver
       - name: validate readme with mdformat and store result in output do not exit on failure
+        id: validate_readme
         continue-on-error: true
         run: |
           mdformat_result=$(mdformat --check README.md 2>&1)
