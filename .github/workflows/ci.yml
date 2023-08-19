@@ -46,7 +46,7 @@ jobs:
           #echo "mdformat result: '${{ steps.validate_readme.outputs.mdformat_result }}'"
           #if [[ ! -z "${{ steps.validate_readme.outputs.mdformat_result }}" ]]; then
           echo "README.md is not formatted correctly. Please run 'mdformat --in-place README.md' and commit the result."
-          mdformat --in-place /tmp/pypiserver/README.md
+          mdformat /tmp/pypiserver/README.md
           diff -u README.md /tmp/pypiserver/README.md
           exit 1
           #fi
