@@ -42,7 +42,7 @@ jobs:
           #echo "mdformat result: '${mdformat_result}'"
         continue-on-error: true
       - name: check mdformat result
-        if: ${{ failure()}
+        if: ${{ failure() }}
         run: |
           #echo "mdformat result: '${{ steps.validate_readme.outputs.mdformat_result }}'"
           #if [[ ! -z "${{ steps.validate_readme.outputs.mdformat_result }}" ]]; then
