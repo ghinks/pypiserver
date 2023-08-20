@@ -24,19 +24,19 @@ jobs:
           python-version: "3.x"
       - name: Install dependencies
         run: |
-          pip install -r "requirements/dev.pip"
+          pip install mdformat-gfm mdformat-frontmatter mdformat-footnote
       - name: validate readme with mdformat
         id: validate_readme
         run: mdformat --check README.md
         continue-on-error: true
       - name: check mdformat result
         run: |
-          # echo result of previous step to make sure it is run
-          echo "${{ steps.validate_readme.outcome}}"
-          echo "${{ steps.validate_readme.outputs.result }}"
-          mkdir -p /tmp/pypiserver
-          cp README.md /tmp/pypiserver
-          echo "README.md is not formatted correctly. Please run 'mdformat --in-place README.md' and commit the result."
-          mdformat /tmp/pypiserver/README.md
-          diff -u README.md /tmp/pypiserver/README.md
-          exit 1
+          mdformat_result = "${{ steps.validate_readme.outcome}}"
+          if [ "$mdformat_result" == "failure" ]; then
+              mkdir -p /tmp/pypiserver
+              cp README.md /tmp/pypiserver
+              echo "README.md is not formatted correctly. Please run 'mdformat README.md' and commit the result."
+              mdformat /tmp/pypiserver/README.md
+              diff -u README.md /tmp/pypiserver/README.md
+              exit 1
+          fi
