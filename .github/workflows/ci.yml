@@ -37,6 +37,6 @@ jobs:
           mkdir -p /tmp/pypiserver
           cp README.md /tmp/pypiserver
           echo "README.md is not formatted correctly. Please run 'mdformat --in-place README.md' and commit the result."
-          mdformat --in-place /tmp/pypiserver/README.md
+          mdformat /tmp/pypiserver/README.md
           diff -u README.md /tmp/pypiserver/README.md
           exit 1
