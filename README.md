@@ -46,7 +46,7 @@ Table of Contents
 
 - [pypiserver - minimal PyPI server for use with pip/easy_install](#pypiserver---minimal-pypi-server-for-use-with-pipeasy_install)
   - [Quickstart Installation and Usage](#quickstart-installation-and-usage)
-    - [More details about pypi-server run](#More-details-about-pypi-server-run)
+    - [More details about pypi-server run](#more-details-about-pypi-server-run)
     - [More details about pypi-server update](#More-details-about-pypi-server-update)
   - [Client-Side Configurations](#Client-Side-Configurations)
     - [Configuring pip](#Configuring-pip)
