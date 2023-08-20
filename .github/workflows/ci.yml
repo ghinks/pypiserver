@@ -15,8 +15,6 @@ jobs:
     # These checks only need to be done once, not for every python version we
     # support
     runs-on: ubuntu-latest
-    outputs:
-      mdformat_result: ${{ steps.validate_readme.outputs.mdformat_result }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -27,21 +25,18 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r "requirements/dev.pip"
-          pip install types-pkg_resources # one of mypy required stubs
-      - name: Copy Readme to temp dir
-        run: |
-          mkdir -p /tmp/pypiserver
-          cp README.md /tmp/pypiserver
-      - name: validate readme with mdformat and store result in output do not exit on failure
+      - name: validate readme with mdformat
         id: validate_readme
-        run: mdformat --check README.md 2>&1
+        run: mdformat --check README.md
         continue-on-error: true
       - name: check mdformat result
         run: |
-          echo "mdformat result: '${{ steps.validate_readme.outputs.mdformat_result }}'"
-          if [[ ! -z "${{ steps.validate_readme.outputs.mdformat_result }}" ]]; then
-            echo "README.md is not formatted correctly. Please run 'mdformat --in-place README.md' and commit the result."
-            mdformat --in-place /tmp/pypiserver/README.md
-            diff -u README.md /tmp/pypiserver/README.md
-            exit 1
-          fi
+          # echo result of previous step to make sure it is run
+          echo "${{ steps.validate_readme.outcome}}"
+          echo "${{ steps.validate_readme.outputs.result }}"
+          mkdir -p /tmp/pypiserver
+          cp README.md /tmp/pypiserver
+          echo "README.md is not formatted correctly. Please run 'mdformat --in-place README.md' and commit the result."
+          mdformat --in-place /tmp/pypiserver/README.md
+          diff -u README.md /tmp/pypiserver/README.md
+          exit 1
