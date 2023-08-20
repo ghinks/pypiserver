@@ -179,7 +179,7 @@ Visit https://github.com/pypiserver/pypiserver for more information
 
 ```
 
-### [More details about pypi server run](#pypiserver)
+### More details about pypi server run
 
 Enter **pypi-server run -h** in the cmd-line to print a detailed usage
 
