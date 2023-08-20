@@ -31,8 +31,6 @@ jobs:
         continue-on-error: true
       - name: check mdformat result
         run: |
-          mdformat_result = "${{ steps.validate_readme.outcome }}"
-          echo "$mdformat_result"
           if [ "${{ steps.validate_readme.outcome }}" == "failure" ]; then
               echo "copy readme to /tmp/pypiserver"
               mkdir -p /tmp/pypiserver
@@ -42,5 +40,5 @@ jobs:
               diff -u README.md /tmp/pypiserver/README.md
               exit 1
           else
-                echo "README.md is formatted correctly."
+              echo "README.md is formatted correctly."
           fi
